@@ -86,9 +86,9 @@ contract Benefit is ERC20, Ownable {
     {
         checkValuePriceRelation(_amount);
         _mint(contractAddress, _amount);
-        price = div(contractAddress.balance, _amount);
-        support = contractAddress.balance;
         initialSupport = contractAddress.balance;
+        updateSupport();
+        updatePrice();
         initialMintAvailable = false;
     }
 
@@ -106,7 +106,7 @@ contract Benefit is ERC20, Ownable {
     }
 
     function updatePrice() internal {
-        price = div(address(this).balance, totalSupply());
+        price = div(contractAddress.balance, totalSupply());
     }
 
     function buy(uint256 _amount) public payable {
