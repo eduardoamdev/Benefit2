@@ -7,6 +7,8 @@ import "./Ownable.sol";
 contract Benefit is ERC20, Ownable {
     address public contractAddress;
 
+    uint256 public minimumPrice;
+
     uint256 public price;
 
     bool public initialPriceStablished;
@@ -17,10 +19,39 @@ contract Benefit is ERC20, Ownable {
 
     uint256 public support;
 
+    uint256 public soldTokens;
+
     constructor() ERC20("Benefit", "BNF") {
         contractAddress = address(this);
         initialPriceStablished = false;
         initialMintAvailable = true;
+    }
+
+    function mul(uint256 _num1, uint256 _num2) internal pure returns (uint256) {
+        if (_num1 == 0) {
+            return 0;
+        } else if (_num2 == 0) {
+            return 0;
+        } else {
+            uint256 result;
+            result = _num1 * _num2;
+            return result;
+        }
+    }
+
+    function div(uint256 _num1, uint256 _num2) internal pure returns (uint256) {
+        require(_num2 != 0);
+        if (_num1 == 0) {
+            return 0;
+        } else {
+            uint256 result;
+            result = _num1 / _num2;
+            uint256 divisional;
+            divisional = _num1 % _num2;
+            require(_num1 == ((result * _num2) + divisional));
+            uint256 finalResult = result + (divisional / _num2);
+            return finalResult;
+        }
     }
 
     modifier checkInitialPriceStablished() {
@@ -39,6 +70,11 @@ contract Benefit is ERC20, Ownable {
         _;
     }
 
+    modifier checkEndingSoldConditions() {
+        require(soldTokens == 0, "There are sold tokens yet");
+        _;
+    }
+
     function checkValuePriceRelation(uint256 _amount) internal {
         require(
             msg.value == _amount * price,
@@ -46,27 +82,25 @@ contract Benefit is ERC20, Ownable {
         );
     }
 
-    function div(uint256 _num1, uint256 _num2) internal pure returns (uint256) {
-        require(_num2 != 0);
-        if (_num1 == 0) {
-            return 0;
-        } else {
-            uint256 result;
-            result = _num1 / _num2;
-            uint256 divisional;
-            divisional = _num1 % _num2;
-            require(_num1 == ((result * _num2) + divisional));
-            uint256 finalResult = result + (divisional / _num2);
-            return finalResult;
-        }
+    function checkAccountBalance(uint256 _amount) public view {
+        require(
+            balanceOf(msg.sender) >= _amount,
+            "You have not that amount of tokens"
+        );
     }
 
-    function setInitialPrice(uint256 _initialPrice)
-        public
-        checkInitialMintAvailable
-    {
-        price = _initialPrice;
-        initialPriceStablished = true;
+    function checkTokensStock(uint256 _amount) public view {
+        require(
+            balanceOf(contractAddress) >= _amount,
+            "There is not enought tokens in stock"
+        );
+    }
+
+    function checkSupportForExtraction(uint256 _amount) public view {
+        require(
+            contractAddress.balance - _amount > mul(soldTokens, minimumPrice),
+            "You have to leave enough support"
+        );
     }
 
     function getContractBnfBalance() public view returns (uint256) {
@@ -75,6 +109,31 @@ contract Benefit is ERC20, Ownable {
 
     function getContractEthBalance() public view returns (uint256) {
         return contractAddress.balance;
+    }
+
+    function getSupport() public returns (uint256) {
+        updateSupport();
+        return support;
+    }
+
+    function updateSupport() public {
+        if (contractAddress.balance < initialSupport) {
+            support = contractAddress.balance;
+        } else {
+            support = initialSupport;
+        }
+    }
+
+    function updatePrice() internal {
+        price = div(contractAddress.balance, totalSupply());
+    }
+
+    function setInitialPrice(uint256 _initialPrice)
+        public
+        checkInitialMintAvailable
+    {
+        price = _initialPrice;
+        initialPriceStablished = true;
     }
 
     function initialMint(uint256 _amount)
@@ -87,43 +146,46 @@ contract Benefit is ERC20, Ownable {
         checkValuePriceRelation(_amount);
         _mint(contractAddress, _amount);
         initialSupport = contractAddress.balance;
+        minimumPrice = div(contractAddress.balance, totalSupply());
         updateSupport();
         updatePrice();
         initialMintAvailable = false;
     }
 
-    function updateSupport() public {
-        if (contractAddress.balance < initialSupport) {
-            support = contractAddress.balance;
-        } else {
-            support = initialSupport;
-        }
-    }
-
-    function getSupport() public returns (uint256) {
-        updateSupport();
-        return support;
-    }
-
-    function updatePrice() internal {
-        price = div(contractAddress.balance, totalSupply());
-    }
-
     function buy(uint256 _amount) public payable {
-        require(
-            balanceOf(address(this)) >= _amount,
-            "There is not enought tokens in stock"
-        );
+        checkTokensStock(_amount);
         checkValuePriceRelation(_amount);
         _transfer(contractAddress, msg.sender, _amount);
         updateSupport();
         updatePrice();
+        soldTokens += _amount;
+    }
+
+    function redeem(uint256 _amount) public {
+        checkAccountBalance(_amount);
+        _transfer(msg.sender, contractAddress, _amount);
+        uint256 amountToTransfer = mul(_amount, price);
+        payable(msg.sender).transfer(amountToTransfer);
+        updateSupport();
+        updatePrice();
+        soldTokens -= _amount;
+    }
+
+    function extractFounds(uint256 _amount) public onlyOwner {
+        checkSupportForExtraction(_amount);
+        payable(msg.sender).transfer(_amount);
+        updateSupport();
+        updatePrice();
+    }
+
+    function addFounds() public payable onlyOwner {
+        updateSupport();
+        updatePrice();
+    }
+
+    function endSold() public onlyOwner {
+        payable(msg.sender).transfer(contractAddress.balance);
+        updateSupport();
+        updatePrice();
     }
 }
-
-/* Notes:
-    Initial price: 1000000000000000000 weis
-    Initial supply 10 BNF
-    Initial price 1 ETH (1000000000000000000 weis)
-    Initial support 10 ETH
- */
