@@ -103,6 +103,10 @@ contract Benefit is ERC20, Ownable {
         );
     }
 
+    function getPrice() public view returns (uint256) {
+        return price;
+    }
+
     function getContractBnfBalance() public view returns (uint256) {
         return balanceOf(contractAddress);
     }

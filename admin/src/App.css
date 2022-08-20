@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.navbar-title {
+  font-size: 2.5rem !important;
+  color: gold !important;
+}
+
+.navbar-link {
+  font-size: 2rem !important;
+}
+
+.fs-2p5 {
+  font-size: 2.5rem;
+}
+
+.fc-white {
+  color: white;
+}
+
+.decoration-none {
+  text-decoration: none;
+}
+
+.ml-2 {
+  margin-left: 2rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.jc-center {
+  justify-content: center;
+}
+
+.pt-25 {
+  padding-top: 25rem;
+}
