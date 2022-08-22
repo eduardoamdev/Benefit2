@@ -61,7 +61,7 @@ contract Benefit is ERC20, Ownable {
 
     function checkValuePriceRelation(uint256 _amount) internal {
         require(
-            msg.value == _amount * price,
+            msg.value == _amount * div(price, 1e18),
             "Value does not match with tokens amount cost"
         );
     }

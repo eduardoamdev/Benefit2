@@ -72,6 +72,14 @@ html {
   padding-top: 25rem;
 }
 
+.padding-t-20 {
+  padding-top: 20rem;
+}
+
 .padding-t-15 {
   padding-top: 15rem;
+}
+
+.padding-button {
+  padding: 0.5rem 1rem;
 }

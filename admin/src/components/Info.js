@@ -49,11 +49,11 @@ const Info = () => {
   }, []);
 
   return (
-    <div className="d-flex fd-column ai-center padding-t-25">
+    <div className="d-flex fd-column ai-center padding-t-20">
       <span className="fs-2">Total supply: {totalSupply.amount} BNF</span>
-      <span className="fs-2">Token price: {price.price} MATIC</span>
+      <span className="fs-2">Token price: {price.price} ETH</span>
       <span className="fs-2">
-        Contract balance: {contractEthBalance.amount} MATIC
+        Contract balance: {contractEthBalance.amount} ETH
       </span>
     </div>
   );
