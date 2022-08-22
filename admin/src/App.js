@@ -3,7 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import { ContractContext, contract } from "./context/contract";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
-import SetPrice from "./components/SetPrice";
+import BeginSold from "./components/BeginSold";
+import Info from "./components/Info";
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
       <ContractContext.Provider value={contract}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/setPrice" element={<SetPrice />} />
+          <Route path="/info" element={<Info />} />
+          <Route path="/beginSold" element={<BeginSold />} />
         </Routes>
       </ContractContext.Provider>
     </div>

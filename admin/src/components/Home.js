@@ -1,28 +1,28 @@
 import { useState, useEffect } from "react";
+import getWallet from "../resources/getWallet";
 
 const Home = () => {
   let [wallet, setWallet] = useState({
     account: "",
   });
 
-  const getAccounts = async () => {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    const account = accounts[0];
+  const getAccount = async () => {
+    const account = await getWallet();
+    const splittedAccount = `...${account.slice(-5)}`;
     setWallet({
-      account,
+      account: splittedAccount,
     });
   };
 
   useEffect(() => {
-    getAccounts();
+    getAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="d-flex jc-center pt-25">
-      <h1 className="fs-2p5">Welcome to Benefit {wallet.account}</h1>
+    <div className="d-flex ai-center fd-column padding-t-25">
+      <h1 className="fs-2p5">Welcome to Benefit</h1>
+      <span className="fs-2">Account: {wallet.account}</span>
     </div>
   );
 };

@@ -54,22 +54,6 @@ contract Benefit is ERC20, Ownable {
         }
     }
 
-    modifier checkInitialPriceStablished() {
-        require(
-            initialPriceStablished == true,
-            "Initial price must be established"
-        );
-        _;
-    }
-
-    modifier checkInitialMintAvailable() {
-        require(
-            initialMintAvailable == true,
-            "Initial mint has already been executed"
-        );
-        _;
-    }
-
     modifier checkEndingSoldConditions() {
         require(soldTokens == 0, "There are sold tokens yet");
         _;
@@ -129,31 +113,15 @@ contract Benefit is ERC20, Ownable {
     }
 
     function updatePrice() internal {
-        price = div(contractAddress.balance, totalSupply());
+        price = div(contractAddress.balance, div(totalSupply(), 1e18));
     }
 
-    function setInitialPrice(uint256 _initialPrice)
-        public
-        checkInitialMintAvailable
-    {
-        price = _initialPrice;
-        initialPriceStablished = true;
-    }
-
-    function initialMint(uint256 _amount)
-        public
-        payable
-        onlyOwner
-        checkInitialMintAvailable
-        checkInitialPriceStablished
-    {
-        checkValuePriceRelation(_amount);
+    function beginSold(uint256 _amount) public payable onlyOwner {
         _mint(contractAddress, _amount);
         initialSupport = contractAddress.balance;
-        minimumPrice = div(contractAddress.balance, totalSupply());
+        minimumPrice = div(contractAddress.balance, div(totalSupply(), 1e18));
         updateSupport();
         updatePrice();
-        initialMintAvailable = false;
     }
 
     function buy(uint256 _amount) public payable {
@@ -187,7 +155,7 @@ contract Benefit is ERC20, Ownable {
         updatePrice();
     }
 
-    function endSold() public onlyOwner {
+    function endSold() public onlyOwner checkEndingSoldConditions {
         payable(msg.sender).transfer(contractAddress.balance);
         updateSupport();
         updatePrice();

@@ -9,16 +9,23 @@ html {
 }
 
 .navbar-title {
-  font-size: 2.5rem !important;
-  color: gold !important;
+  font-size: 2rem !important;
 }
 
 .navbar-link {
-  font-size: 2rem !important;
+  font-size: 1.6rem !important;
 }
 
 .fs-2p5 {
   font-size: 2.5rem;
+}
+
+.fs-2 {
+  font-size: 2rem;
+}
+
+.fs-1p6 {
+  font-size: 1.6rem;
 }
 
 .fc-white {
@@ -29,18 +36,42 @@ html {
   text-decoration: none;
 }
 
-.ml-2 {
+.margin-l-2 {
   margin-left: 2rem;
+}
+
+.margin-b-1 {
+  margin-bottom: 1rem;
+}
+
+.margin-b-1p5 {
+  margin-bottom: 1.5rem;
+}
+
+.margin-b-2 {
+  margin-bottom: 2rem;
 }
 
 .d-flex {
   display: flex;
 }
 
+.fd-column {
+  flex-direction: column;
+}
+
+.ai-center{
+  align-items: center;
+}
+
 .jc-center {
   justify-content: center;
 }
 
-.pt-25 {
+.padding-t-25 {
   padding-top: 25rem;
+}
+
+.padding-t-15 {
+  padding-top: 15rem;
 }
