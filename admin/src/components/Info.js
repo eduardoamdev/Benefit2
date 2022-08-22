@@ -49,12 +49,37 @@ const Info = () => {
   }, []);
 
   return (
-    <div className="d-flex fd-column ai-center padding-t-20">
-      <span className="fs-2">Total supply: {totalSupply.amount} BNF</span>
-      <span className="fs-2">Token price: {price.price} ETH</span>
-      <span className="fs-2">
-        Contract balance: {contractEthBalance.amount} ETH
-      </span>
+    <div className="d-flex fd-column ai-center padding-t-15">
+      <table>
+        <tbody>
+          <tr>
+            <td className="padding-1">
+              <p className="fs-2">Total supply:</p>
+            </td>
+            <td className="padding-1">
+              <p className="fs-2 d-flex jc-end">{totalSupply.amount} BNF</p>
+            </td>
+          </tr>
+          <tr>
+            <td className="padding-1">
+              <p className="fs-2">Token price:</p>
+            </td>
+            <td className="padding-1">
+              <p className="fs-2 d-flex jc-end">{price.price} ETH</p>
+            </td>
+          </tr>
+          <tr>
+            <td className="padding-1">
+              <p className="fs-2">Contract balance:</p>
+            </td>
+            <td className="padding-1">
+              <p className="fs-2 d-flex jc-end">
+                {contractEthBalance.amount} ETH
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

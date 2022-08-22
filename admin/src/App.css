@@ -68,12 +68,16 @@ html {
   justify-content: center;
 }
 
-.padding-t-25 {
-  padding-top: 25rem;
+.jc-end {
+  justify-content: flex-end;
 }
 
-.padding-t-20 {
-  padding-top: 20rem;
+.padding-1 {
+  padding: 1rem;
+}
+
+.padding-t-25 {
+  padding-top: 25rem;
 }
 
 .padding-t-15 {
