@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { ContractContext } from "../context/contract";
 import { formatEther } from "ethers/lib/utils";
 
-const Info = () => {
+const DappInfo = () => {
   const contract = useContext(ContractContext);
 
   let [price, setPrice] = useState({
@@ -50,29 +50,29 @@ const Info = () => {
 
   return (
     <div className="d-flex fd-column ai-center padding-t-15">
-      <table>
+      <table className="green-border-4">
         <tbody>
           <tr>
-            <td className="padding-1">
-              <p className="fs-2">Total supply:</p>
+            <td className="padding-1 green-border-2">
+              <p className="fs-2 fc-white">Total supply:</p>
             </td>
-            <td className="padding-1">
+            <td className="padding-1 fc-white green-border-2">
               <p className="fs-2 d-flex jc-end">{totalSupply.amount} BNF</p>
             </td>
           </tr>
           <tr>
-            <td className="padding-1">
+            <td className="padding-1 fc-white  green-border-2">
               <p className="fs-2">Token price:</p>
             </td>
-            <td className="padding-1">
+            <td className="padding-1 fc-white green-border-2">
               <p className="fs-2 d-flex jc-end">{price.price} ETH</p>
             </td>
           </tr>
           <tr>
-            <td className="padding-1">
+            <td className="padding-1 fc-white green-border-2">
               <p className="fs-2">Contract balance:</p>
             </td>
-            <td className="padding-1">
+            <td className="padding-1 fc-white green-border-2">
               <p className="fs-2 d-flex jc-end">
                 {contractEthBalance.amount} ETH
               </p>
@@ -84,4 +84,4 @@ const Info = () => {
   );
 };
 
-export default Info;
+export default DappInfo;

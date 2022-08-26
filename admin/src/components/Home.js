@@ -20,9 +20,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="d-flex ai-center fd-column padding-t-25">
-      <h1 className="fs-2p5">Welcome to Benefit</h1>
-      <span className="fs-2">Account: {wallet.account}</span>
+    <div className="d-flex ai-center fd-column padding-t-20">
+      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">
+        Welcome to Benefit
+      </h1>
+      <span className="fs-2 fc-white">Account: {wallet.account}</span>
     </div>
   );
 };

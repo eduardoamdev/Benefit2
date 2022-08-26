@@ -71,9 +71,12 @@ const Buy = () => {
 
   return (
     <div className="d-flex fd-column ai-center padding-t-15">
-      <label className="fs-1p6 margin-b-1">Tokens amount:</label>
+      <label className="fs-1p6 margin-b-1 fc-white">Tokens amount:</label>
       <input className="fs-1p6 margin-b-1p5" onChange={handleTokensChange} />
-      <button className="fs-1p6 padding-button" onClick={handleClick}>
+      <button
+        className="fs-1p6 padding-button bg-green fc-white green-border-2 border-radius-1-r"
+        onClick={handleClick}
+      >
         Buy
       </button>
     </div>
