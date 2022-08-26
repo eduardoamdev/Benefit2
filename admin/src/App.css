@@ -13,7 +13,9 @@ html {
 }
 
 .navbar-title {
+  font-family: "DynaPuff";
   font-size: 2rem !important;
+  color: rgb(0, 161, 0) !important;
 }
 
 .navbar-link {
