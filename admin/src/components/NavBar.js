@@ -50,6 +50,24 @@ function NavBar() {
             >
               Balances
             </Link>
+            <Link
+              to="/addFunds"
+              className="decoration-none margin-l-2 fc-white navbar-link"
+            >
+              Add funds
+            </Link>
+            <Link
+              to="/extractFunds"
+              className="decoration-none margin-l-2 fc-white navbar-link"
+            >
+              Extract funds
+            </Link>
+            <Link
+              to="/endSold"
+              className="decoration-none margin-l-2 fc-white navbar-link"
+            >
+              End sold
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { ContractContext } from "../context/contract";
-import { parseEther } from "ethers/lib/utils";
+import { ethers } from "ethers";
 import getWallet from "../resources/getWallet";
 
 const BeginSold = () => {
@@ -26,10 +26,13 @@ const BeginSold = () => {
   };
 
   const beginSold = async () => {
-    await contract.functions.beginSold(parseEther(tokenAmount.amount), {
-      from: wallet.account,
-      value: parseEther(balance.balance),
-    });
+    await contract.functions.beginSold(
+      ethers.utils.parseEther(tokenAmount.amount),
+      {
+        from: wallet.account,
+        value: ethers.utils.parseEther(balance.balance),
+      }
+    );
   };
 
   const handleTokensChange = (event) => {
@@ -58,6 +61,7 @@ const BeginSold = () => {
 
   return (
     <div className="d-flex fd-column ai-center padding-t-15">
+      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Turn on Benefit</h1>
       <label className="fs-1p6 margin-b-1 fc-white">Set token's amount:</label>
       <input className="fs-1p6 margin-b-1p5" onChange={handleTokensChange} />
       <label className="fs-1p6 margin-b-1 fc-white">Set initial balance:</label>

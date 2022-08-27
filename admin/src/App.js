@@ -7,6 +7,9 @@ import BeginSold from "./components/BeginSold";
 import DappInfo from "./components/DappInfo";
 import Buy from "./components/Buy";
 import Balances from "./components/Balances";
+import AddFunds from "./components/AddFunds";
+import EndSold from "./components/EndSold";
+import ExtractFunds from "./components/ExtractFunds";
 
 const App = () => {
   return (
@@ -19,6 +22,9 @@ const App = () => {
           <Route path="/beginSold" element={<BeginSold />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/balances" element={<Balances />} />
+          <Route path="/addFunds" element={<AddFunds />} />
+          <Route path="/extractFunds" element={<ExtractFunds />} />
+          <Route path="/endSold" element={<EndSold />} />
         </Routes>
       </ContractContext.Provider>
     </div>

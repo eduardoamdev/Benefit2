@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { ContractContext } from "../context/contract";
-import { formatEther } from "ethers/lib/utils";
+import { ethers } from "ethers";
 
 const Balances = () => {
   const contract = useContext(ContractContext);
@@ -15,7 +15,7 @@ const Balances = () => {
 
   const getAccountBalance = async () => {
     const accountBalance = await contract.functions.balanceOf(account.account);
-    const formatedBalance = formatEther(accountBalance[0]);
+    const formatedBalance = ethers.utils.formatEther(accountBalance[0]);
     setBalance({
       balance: formatedBalance,
     });
@@ -35,6 +35,7 @@ const Balances = () => {
 
   return (
     <div className="d-flex fd-column ai-center padding-t-15">
+      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Get the balance</h1>
       <label className="fs-1p6 margin-b-1 fc-white">Account:</label>
       <input className="fs-1p6 margin-b-1p5" onChange={handleAccountChange} />
       <button

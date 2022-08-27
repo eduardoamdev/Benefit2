@@ -61,7 +61,7 @@ contract Benefit is ERC20, Ownable {
 
     function checkValuePriceRelation(uint256 _amount) internal {
         require(
-            msg.value == _amount * div(price, 1e18),
+            msg.value == div(_amount * price, 1e18),
             "Value does not match with tokens amount cost"
         );
     }
@@ -73,7 +73,7 @@ contract Benefit is ERC20, Ownable {
         );
     }
 
-    function checkTokensStock(uint256 _amount) public view {
+    function checkTokenStock(uint256 _amount) public view {
         require(
             balanceOf(contractAddress) >= _amount,
             "There is not enought tokens in stock"
@@ -83,8 +83,12 @@ contract Benefit is ERC20, Ownable {
     function checkSupportForExtraction(uint256 _amount) public view {
         require(
             contractAddress.balance - _amount > mul(soldTokens, minimumPrice),
-            "You have to leave enough support"
+            "You have to leave enought support"
         );
+    }
+
+    function checkAmountAddedToContract(uint256 _amount) internal {
+        require(_amount == msg.value, "Values are not correct");
     }
 
     function getPrice() public view returns (uint256) {
@@ -113,24 +117,24 @@ contract Benefit is ERC20, Ownable {
     }
 
     function updatePrice() internal {
-        price = div(contractAddress.balance, div(totalSupply(), 1e18));
+        price = div(mul(contractAddress.balance, 1e18), totalSupply());
     }
 
     function beginSold(uint256 _amount) public payable onlyOwner {
         _mint(contractAddress, _amount);
         initialSupport = contractAddress.balance;
-        minimumPrice = div(contractAddress.balance, div(totalSupply(), 1e18));
+        minimumPrice = div(contractAddress.balance, totalSupply());
         updateSupport();
         updatePrice();
     }
 
     function buy(uint256 _amount) public payable {
-        checkTokensStock(_amount);
+        checkTokenStock(_amount);
         checkValuePriceRelation(_amount);
         _transfer(contractAddress, msg.sender, _amount);
+        soldTokens += _amount;
         updateSupport();
         updatePrice();
-        soldTokens += _amount;
     }
 
     function redeem(uint256 _amount) public {
@@ -143,14 +147,15 @@ contract Benefit is ERC20, Ownable {
         soldTokens -= _amount;
     }
 
-    function extractFounds(uint256 _amount) public onlyOwner {
-        checkSupportForExtraction(_amount);
-        payable(msg.sender).transfer(_amount);
+    function addFunds(uint256 _amount) public payable onlyOwner {
+        checkAmountAddedToContract(_amount);
         updateSupport();
         updatePrice();
     }
 
-    function addFounds() public payable onlyOwner {
+    function extractFunds(uint256 _amount) public onlyOwner {
+        checkSupportForExtraction(_amount);
+        payable(msg.sender).transfer(_amount);
         updateSupport();
         updatePrice();
     }
