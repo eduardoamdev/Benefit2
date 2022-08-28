@@ -10,11 +10,8 @@ const BeginSold = () => {
     account: "",
   });
 
-  let [tokenAmount, setTokenAmount] = useState({
+  let [info, setInfo] = useState({
     amount: "",
-  });
-
-  let [balance, setBalance] = useState({
     balance: "",
   });
 
@@ -26,25 +23,28 @@ const BeginSold = () => {
   };
 
   const beginSold = async () => {
-    await contract.functions.beginSold(
-      ethers.utils.parseEther(tokenAmount.amount),
-      {
-        from: wallet.account,
-        value: ethers.utils.parseEther(balance.balance),
-      }
-    );
+    await contract.functions.beginSold(ethers.utils.parseEther(info.amount), {
+      from: wallet.account,
+      value: ethers.utils.parseEther(info.balance),
+    });
+    setInfo({
+      amount: "",
+      balance: "",
+    });
   };
 
   const handleTokensChange = (event) => {
     event.preventDefault();
-    setTokenAmount({
+    setInfo({
+      ...info,
       amount: event.target.value,
     });
   };
 
   const handleBalanceChange = (event) => {
     event.preventDefault();
-    setBalance({
+    setInfo({
+      ...info,
       balance: event.target.value,
     });
   };
@@ -63,9 +63,17 @@ const BeginSold = () => {
     <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Turn on Benefit</h1>
       <label className="fs-1p6 margin-b-1 fc-white">Set token's amount:</label>
-      <input className="fs-1p6 margin-b-1p5" onChange={handleTokensChange} />
+      <input
+        className="fs-1p6 margin-b-1p5 padding-0p5"
+        onChange={handleTokensChange}
+        value={info.amount}
+      />
       <label className="fs-1p6 margin-b-1 fc-white">Set initial balance:</label>
-      <input className="fs-1p6 margin-b-2" onChange={handleBalanceChange} />
+      <input
+        className="fs-1p6 margin-b-2 padding-0p5"
+        onChange={handleBalanceChange}
+        value={info.balance}
+      />
       <button
         className="fs-1p6 padding-button bg-green fc-white green-border-2 border-radius-1-r"
         onClick={handleClick}

@@ -46,6 +46,9 @@ const Buy = () => {
       value: ethers.utils.parseEther(totalPriceString),
       gasLimit: 3000000,
     });
+    setTokenAmount({
+      amount: "",
+    });
   };
 
   const handleTokensChange = (event) => {
@@ -70,7 +73,11 @@ const Buy = () => {
     <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Buy BNF</h1>
       <label className="fs-1p6 margin-b-1 fc-white">Tokens amount:</label>
-      <input className="fs-1p6 margin-b-1p5" onChange={handleTokensChange} />
+      <input
+        className="fs-1p6 margin-b-1p5 padding-0p5"
+        onChange={handleTokensChange}
+        value={tokenAmount.amount}
+      />
       <button
         className="fs-1p6 padding-button bg-green fc-white green-border-2 border-radius-1-r"
         onClick={handleClick}

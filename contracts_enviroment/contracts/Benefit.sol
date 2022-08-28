@@ -149,7 +149,7 @@ contract Benefit is ERC20, Ownable {
     function redeem(uint256 _amount) public {
         checkAccountBalance(_amount);
         _transfer(msg.sender, contractAddress, _amount);
-        uint256 amountToTransfer = mul(_amount, price);
+        uint256 amountToTransfer = div(mul(_amount, price), 1e18);
         payable(msg.sender).transfer(amountToTransfer);
         updateSupport();
         updatePrice();

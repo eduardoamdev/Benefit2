@@ -2,51 +2,51 @@ import { useContext, useState } from "react";
 import { ContractContext } from "../context/contract";
 import { ethers } from "ethers";
 
-const ExtractFunds = () => {
+const Redeem = () => {
   const contract = useContext(ContractContext);
 
-  let [amount, setAmount] = useState({
+  let [tokenAmount, setTokenAmount] = useState({
     amount: "",
   });
 
-  const extractFunds = async () => {
-    await contract.functions.extractFunds(
-      ethers.utils.parseEther(amount.amount)
+  const redeem = async () => {
+    await contract.functions.redeem(
+      ethers.utils.parseEther(tokenAmount.amount)
     );
-    setAmount({
+    setTokenAmount({
       amount: "",
     });
   };
 
-  const handleAmountChange = (event) => {
+  const handleTokensChange = (event) => {
     event.preventDefault();
-    setAmount({
+    setTokenAmount({
       amount: event.target.value,
     });
   };
 
   const handleClick = (event) => {
     event.preventDefault();
-    extractFunds();
+    redeem();
   };
 
   return (
     <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
-      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Extract to invest</h1>
-      <label className="fs-1p6 margin-b-1 fc-white">Amount:</label>
+      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Redeem BNF</h1>
+      <label className="fs-1p6 margin-b-1 fc-white">Tokens amount:</label>
       <input
-        className="fs-1p6 margin-b-2 padding-0p5"
-        onChange={handleAmountChange}
-        value={amount.amount}
+        className="fs-1p6 margin-b-1p5 padding-0p5"
+        onChange={handleTokensChange}
+        value={tokenAmount.amount}
       />
       <button
         className="fs-1p6 padding-button bg-green fc-white green-border-2 border-radius-1-r"
         onClick={handleClick}
       >
-        Submit
+        Redeem
       </button>
     </div>
   );
 };
 
-export default ExtractFunds;
+export default Redeem;

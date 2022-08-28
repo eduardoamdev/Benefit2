@@ -90,6 +90,10 @@ html {
   justify-content: flex-end;
 }
 
+.padding-0p5 {
+  padding: 0.5rem;
+}
+
 .padding-1 {
   padding: 1rem;
 }

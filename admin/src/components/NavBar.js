@@ -33,6 +33,12 @@ function NavBar() {
               Dapp info
             </Link>
             <Link
+              to="/balances"
+              className="decoration-none margin-l-2 fc-white navbar-link"
+            >
+              Balances
+            </Link>
+            <Link
               to="/beginSold"
               className="decoration-none margin-l-2 fc-white navbar-link"
             >
@@ -45,10 +51,10 @@ function NavBar() {
               Buy
             </Link>
             <Link
-              to="/balances"
+              to="/redeem"
               className="decoration-none margin-l-2 fc-white navbar-link"
             >
-              Balances
+              Redeem
             </Link>
             <Link
               to="/addFunds"
