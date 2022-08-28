@@ -13,7 +13,7 @@ import ExtractFunds from "./components/ExtractFunds";
 
 const App = () => {
   return (
-    <div className="bg-black height-100">
+    <div className="bg-black min-height-100">
       <NavBar />
       <ContractContext.Provider value={contract}>
         <Routes>

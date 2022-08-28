@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { ContractContext } from "../context/contract";
 import getWallet from "../resources/getWallet";
 import { ethers } from "ethers";
+import BigNumber from "bignumber.js";
 
 const Buy = () => {
   const contract = useContext(ContractContext);
@@ -34,17 +35,17 @@ const Buy = () => {
   };
 
   const buy = async () => {
-    const totalPrice = (tokenAmount.amount * price.price).toString();
-    const value = await contract.functions.buy(
-      ethers.utils.parseEther(tokenAmount.amount),
-      {
-        from: wallet.account,
-        value: ethers.utils.parseEther(totalPrice),
-        gasLimit: 3000000,
-      }
+    const bigNumberTokenAmount = new BigNumber(tokenAmount.amount);
+    const bigNumberPrice = new BigNumber(price.price);
+    const totalPrice = new BigNumber(
+      bigNumberTokenAmount.multipliedBy(bigNumberPrice)
     );
-    const formatedValue = ethers.utils.formatUnits(value[0]);
-    console.log(formatedValue);
+    const totalPriceString = totalPrice.toString();
+    await contract.functions.buy(ethers.utils.parseEther(tokenAmount.amount), {
+      from: wallet.account,
+      value: ethers.utils.parseEther(totalPriceString),
+      gasLimit: 3000000,
+    });
   };
 
   const handleTokensChange = (event) => {
@@ -66,7 +67,7 @@ const Buy = () => {
   }, []);
 
   return (
-    <div className="d-flex fd-column ai-center padding-t-15">
+    <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Buy BNF</h1>
       <label className="fs-1p6 margin-b-1 fc-white">Tokens amount:</label>
       <input className="fs-1p6 margin-b-1p5" onChange={handleTokensChange} />

@@ -14,7 +14,7 @@ const EndSold = () => {
   };
 
   return (
-    <div className="d-flex fd-column ai-center padding-t-15">
+    <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Turn off Benefit</h1>
       <button
         className="fs-1p6 padding-button bg-red fc-white white-border-2 border-radius-1-r"

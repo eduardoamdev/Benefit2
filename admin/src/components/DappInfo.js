@@ -49,7 +49,7 @@ const DappInfo = () => {
   }, []);
 
   return (
-    <div className="d-flex fd-column ai-center padding-t-15">
+    <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">State of Benefit</h1>
       <table className="white-border-4">
         <tbody>

@@ -34,7 +34,7 @@ const Balances = () => {
   };
 
   return (
-    <div className="d-flex fd-column ai-center padding-t-15">
+    <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Get the balance</h1>
       <label className="fs-1p6 margin-b-1 fc-white">Account:</label>
       <input className="fs-1p6 margin-b-1p5" onChange={handleAccountChange} />

@@ -82,7 +82,8 @@ contract Benefit is ERC20, Ownable {
 
     function checkSupportForExtraction(uint256 _amount) public view {
         require(
-            contractAddress.balance - _amount > mul(soldTokens, minimumPrice),
+            contractAddress.balance - _amount >
+                div(mul(soldTokens, minimumPrice), 1e18),
             "You have to leave enought support"
         );
     }
@@ -117,13 +118,21 @@ contract Benefit is ERC20, Ownable {
     }
 
     function updatePrice() internal {
-        price = div(mul(contractAddress.balance, 1e18), totalSupply());
+        uint256 newPrice = div(
+            mul(contractAddress.balance, 1e18),
+            totalSupply()
+        );
+        if (newPrice <= minimumPrice) {
+            price = minimumPrice;
+        } else {
+            price = newPrice;
+        }
     }
 
     function beginSold(uint256 _amount) public payable onlyOwner {
         _mint(contractAddress, _amount);
         initialSupport = contractAddress.balance;
-        minimumPrice = div(contractAddress.balance, totalSupply());
+        minimumPrice = div(mul(contractAddress.balance, 1e18), totalSupply());
         updateSupport();
         updatePrice();
     }

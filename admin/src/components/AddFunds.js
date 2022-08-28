@@ -46,7 +46,7 @@ const AddFunds = () => {
   }, []);
 
   return (
-    <div className="d-flex fd-column ai-center padding-t-15">
+    <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Inject liquidity</h1>
       <label className="fs-1p6 margin-b-1 fc-white">Amount:</label>
       <input className="fs-1p6 margin-b-2" onChange={handleAmountChange} />
