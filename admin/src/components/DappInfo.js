@@ -24,32 +24,41 @@ const DappInfo = () => {
   const getTotalSupply = async () => {
     const totalSupply = await contract.functions.totalSupply();
     const formatedSupply = ethers.utils.formatEther(totalSupply[0]);
+    const parsedSupply = parseInt(formatedSupply);
+    const toStrSupply = parsedSupply.toString();
     setTotalSupply({
-      amount: formatedSupply,
+      amount: toStrSupply,
     });
   };
 
   const getSoldTokens = async () => {
     const soldTokens = await contract.functions.soldTokens();
     const formatedSoldTokens = ethers.utils.formatEther(soldTokens[0]);
+    const toFixedSoldTokens = parseFloat(formatedSoldTokens).toFixed(1);
+    const toFixedStrSoldTokens = toFixedSoldTokens.toString();
     setSoldTokens({
-      amount: formatedSoldTokens,
-    });
-  };
-
-  const getContractEthBalance = async () => {
-    const balance = await contract.functions.getContractEthBalance();
-    const formatedBalance = ethers.utils.formatEther(balance[0]);
-    setContractEthBalance({
-      amount: formatedBalance,
+      amount: toFixedStrSoldTokens,
     });
   };
 
   const getPrice = async () => {
     const price = await contract.functions.getPrice();
     const formatedPrice = ethers.utils.formatEther(price[0]);
+    const toFixedPrice = parseFloat(formatedPrice).toFixed(4);
+    const toFixedStrPrice = toFixedPrice.toString();
     setPrice({
-      price: formatedPrice,
+      price: toFixedStrPrice,
+    });
+  };
+
+  const getContractEthBalance = async () => {
+    const balance = await contract.functions.getContractEthBalance();
+    const formatedBalance = ethers.utils.formatEther(balance[0]);
+    const toFixedBalance = parseFloat(formatedBalance).toFixed(4);
+    const toFixedStrBalance = toFixedBalance.toString();
+    console.log(toFixedStrBalance);
+    setContractEthBalance({
+      amount: toFixedStrBalance,
     });
   };
 
@@ -87,7 +96,7 @@ const DappInfo = () => {
               <p className="fs-2">Token price:</p>
             </td>
             <td className="padding-1 fc-white white-border-2">
-              <p className="fs-2 d-flex jc-end">{price.price} ETH</p>
+              <p className="fs-2 d-flex jc-end">{price.price} MATIC</p>
             </td>
           </tr>
           <tr>
@@ -96,7 +105,7 @@ const DappInfo = () => {
             </td>
             <td className="padding-1 fc-white white-border-2">
               <p className="fs-2 d-flex jc-end">
-                {contractEthBalance.amount} ETH
+                {contractEthBalance.amount} MATIC
               </p>
             </td>
           </tr>

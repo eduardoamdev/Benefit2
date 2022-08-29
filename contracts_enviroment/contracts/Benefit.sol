@@ -191,9 +191,9 @@ contract Benefit is ERC20, Ownable {
     function shareDividends(uint256 _amount) public onlyOwner {
         checkSupportForExtraction(_amount);
         for (uint256 i = 0; i < wallets.length; i++) {
-            uint256 amountToShare = mul(
-                div(_amount, soldTokens),
-                balanceOf(wallets[i])
+            uint256 amountToShare = div(
+                mul(div(mul(_amount, 1e18), soldTokens), balanceOf(wallets[i])),
+                1e18
             );
             payable(wallets[i]).transfer(amountToShare);
         }
