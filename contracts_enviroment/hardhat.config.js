@@ -19,12 +19,12 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 
 // Connection to local node
-module.exports = {
+/* module.exports = {
   solidity: "0.8.4",
-};
+}; */
 
 // Connection to Mumbai Network
-/* module.exports = {
+module.exports = {
   defaultNetwork: "matic",
   networks: {
     hardhat: {},
@@ -33,9 +33,6 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       chainId: 80001,
     },
-  },
-  etherscan: {
-    apiKey: process.env.API_KEY,
   },
   solidity: {
     version: "0.8.4",
@@ -46,4 +43,4 @@ module.exports = {
       },
     },
   },
-}; */
+};

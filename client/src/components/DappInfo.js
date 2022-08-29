@@ -13,15 +13,27 @@ const DappInfo = () => {
     amount: 0,
   });
 
+  let [soldTokens, setSoldTokens] = useState({
+    amount: 0,
+  });
+
   let [contractEthBalance, setContractEthBalance] = useState({
     amount: 0,
   });
 
-  const getSoldTokens = async () => {
-    const totalSupply = await contract.functions.soldTokens();
+  const getTotalSupply = async () => {
+    const totalSupply = await contract.functions.totalSupply();
     const formatedSupply = ethers.utils.formatEther(totalSupply[0]);
     setTotalSupply({
       amount: formatedSupply,
+    });
+  };
+
+  const getSoldTokens = async () => {
+    const soldTokens = await contract.functions.soldTokens();
+    const formatedSoldTokens = ethers.utils.formatEther(soldTokens[0]);
+    setSoldTokens({
+      amount: formatedSoldTokens,
     });
   };
 
@@ -42,6 +54,7 @@ const DappInfo = () => {
   };
 
   useEffect(() => {
+    getTotalSupply();
     getSoldTokens();
     getPrice();
     getContractEthBalance();
@@ -50,15 +63,23 @@ const DappInfo = () => {
 
   return (
     <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
-      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">State of Benefit</h1>
+      <h1 className="fs-2p5 fc-orange margin-b-5 dynaFont">State of Benefit</h1>
       <table className="white-border-4">
         <tbody>
+          <tr>
+            <td className="padding-1 white-border-2">
+              <p className="fs-2 fc-white">Total supply:</p>
+            </td>
+            <td className="padding-1 fc-white white-border-2">
+              <p className="fs-2 d-flex jc-end">{totalSupply.amount} BNF</p>
+            </td>
+          </tr>
           <tr>
             <td className="padding-1 white-border-2">
               <p className="fs-2 fc-white">Sold tokens:</p>
             </td>
             <td className="padding-1 fc-white white-border-2">
-              <p className="fs-2 d-flex jc-end">{totalSupply.amount} BNF</p>
+              <p className="fs-2 d-flex jc-end">{soldTokens.amount} BNF</p>
             </td>
           </tr>
           <tr>
