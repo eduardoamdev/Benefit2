@@ -32,7 +32,9 @@ const ExtractFunds = () => {
 
   return (
     <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
-      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Extract to invest</h1>
+      <h1 className="fs-2p5 fc-orange margin-b-5 dynaFont">
+        Extract to invest
+      </h1>
       <label className="fs-1p6 margin-b-1 fc-white">Amount:</label>
       <input
         className="fs-1p6 margin-b-2 padding-0p5"
@@ -40,7 +42,7 @@ const ExtractFunds = () => {
         value={amount.amount}
       />
       <button
-        className="fs-1p6 padding-button bg-green fc-white green-border-2 border-radius-1-r"
+        className="fs-1p6 padding-button bg-orange fc-white orange-border-2 border-radius-1-r"
         onClick={handleClick}
       >
         Submit

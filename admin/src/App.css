@@ -5,7 +5,7 @@
 
 html {
   font-size: 10px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .dynaFont {
@@ -15,7 +15,7 @@ html {
 .navbar-title {
   font-family: "DynaPuff";
   font-size: 2rem !important;
-  color: rgb(0, 161, 0) !important;
+  color: rgb(255, 145, 0) !important;
 }
 
 .navbar-link {
@@ -38,8 +38,8 @@ html {
   color: white;
 }
 
-.fc-green {
-  color: rgb(0, 161, 0);
+.fc-orange {
+  color: rgb(255, 145, 0);
 }
 
 .decoration-none {
@@ -78,7 +78,7 @@ html {
   flex-direction: column;
 }
 
-.ai-center{
+.ai-center {
   align-items: center;
 }
 
@@ -107,7 +107,7 @@ html {
 }
 
 .padding-b-10 {
-  padding-bottom: 10rem
+  padding-bottom: 10rem;
 }
 
 .padding-button {
@@ -124,6 +124,10 @@ html {
 
 .green-border-2 {
   border: 2px solid green;
+}
+
+.orange-border-2 {
+  border: 2px solid orange;
 }
 
 .white-border-2 {
@@ -146,8 +150,8 @@ html {
   background: black;
 }
 
-.bg-green {
-  background: rgb(0, 161, 0);
+.bg-orange {
+  background: rgb(255, 145, 0);
 }
 
 .bg-red {

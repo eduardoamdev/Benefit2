@@ -21,7 +21,9 @@ const Home = () => {
 
   return (
     <div className="d-flex ai-center fd-column padding-t-20 padding-b-10">
-      <h1 className="fs-2p5 fc-green margin-b-5 dynaFont">Benefit Dashboard</h1>
+      <h1 className="fs-2p5 fc-orange margin-b-5 dynaFont">
+        Benefit Dashboard
+      </h1>
       <span className="fs-2 fc-white">Account: {wallet.account}</span>
     </div>
   );
