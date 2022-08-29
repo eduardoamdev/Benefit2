@@ -17,8 +17,8 @@ const DappInfo = () => {
     amount: 0,
   });
 
-  const getTotalSupply = async () => {
-    const totalSupply = await contract.functions.totalSupply();
+  const getSoldTokens = async () => {
+    const totalSupply = await contract.functions.soldTokens();
     const formatedSupply = ethers.utils.formatEther(totalSupply[0]);
     setTotalSupply({
       amount: formatedSupply,
@@ -42,7 +42,7 @@ const DappInfo = () => {
   };
 
   useEffect(() => {
-    getTotalSupply();
+    getSoldTokens();
     getPrice();
     getContractEthBalance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +55,7 @@ const DappInfo = () => {
         <tbody>
           <tr>
             <td className="padding-1 white-border-2">
-              <p className="fs-2 fc-white">Total supply:</p>
+              <p className="fs-2 fc-white">Sold tokens:</p>
             </td>
             <td className="padding-1 fc-white white-border-2">
               <p className="fs-2 d-flex jc-end">{totalSupply.amount} BNF</p>

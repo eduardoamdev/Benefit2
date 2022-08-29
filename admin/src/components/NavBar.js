@@ -33,12 +33,6 @@ function NavBar() {
               Dapp info
             </Link>
             <Link
-              to="/balances"
-              className="decoration-none margin-l-2 fc-white navbar-link"
-            >
-              Balances
-            </Link>
-            <Link
               to="/beginSold"
               className="decoration-none margin-l-2 fc-white navbar-link"
             >
@@ -67,6 +61,12 @@ function NavBar() {
               className="decoration-none margin-l-2 fc-white navbar-link"
             >
               Extract funds
+            </Link>
+            <Link
+              to="/shareDividends"
+              className="decoration-none margin-l-2 fc-white navbar-link"
+            >
+              Share dividends
             </Link>
             <Link
               to="/endSold"

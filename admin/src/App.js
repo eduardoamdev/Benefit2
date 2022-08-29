@@ -7,10 +7,10 @@ import BeginSold from "./components/BeginSold";
 import DappInfo from "./components/DappInfo";
 import Buy from "./components/Buy";
 import Redeem from "./components/Redeem";
-import Balances from "./components/Balances";
 import AddFunds from "./components/AddFunds";
-import EndSold from "./components/EndSold";
 import ExtractFunds from "./components/ExtractFunds";
+import ShareDividends from "./components/ShareDividends";
+import EndSold from "./components/EndSold";
 
 const App = () => {
   return (
@@ -20,12 +20,12 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dappInfo" element={<DappInfo />} />
-          <Route path="/balances" element={<Balances />} />
           <Route path="/beginSold" element={<BeginSold />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/redeem" element={<Redeem />} />
           <Route path="/addFunds" element={<AddFunds />} />
           <Route path="/extractFunds" element={<ExtractFunds />} />
+          <Route path="/shareDividends" element={<ShareDividends />} />
           <Route path="/endSold" element={<EndSold />} />
         </Routes>
       </ContractContext.Provider>
