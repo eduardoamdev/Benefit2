@@ -21,6 +21,8 @@ contract Benefit is ERC20, Ownable {
 
     uint256 public soldTokens;
 
+    address[] public wallets;
+
     constructor() ERC20("Benefit", "BNF") {
         contractAddress = address(this);
         initialPriceStablished = false;
@@ -92,6 +94,18 @@ contract Benefit is ERC20, Ownable {
         require(_amount == msg.value, "Values are not correct");
     }
 
+    function checkWallet() internal {
+        bool isWalletLogged = false;
+        for (uint256 i = 0; i < wallets.length; i++) {
+            if (msg.sender == wallets[i]) {
+                isWalletLogged = true;
+            }
+        }
+        if (isWalletLogged == false) {
+            wallets.push(msg.sender);
+        }
+    }
+
     function getPrice() public view returns (uint256) {
         return price;
     }
@@ -107,6 +121,10 @@ contract Benefit is ERC20, Ownable {
     function getSupport() public returns (uint256) {
         updateSupport();
         return support;
+    }
+
+    function getWallets() public view returns (address[] memory) {
+        return wallets;
     }
 
     function updateSupport() public {
@@ -140,6 +158,7 @@ contract Benefit is ERC20, Ownable {
     function buy(uint256 _amount) public payable {
         checkTokenStock(_amount);
         checkValuePriceRelation(_amount);
+        checkWallet();
         _transfer(contractAddress, msg.sender, _amount);
         soldTokens += _amount;
         updateSupport();
@@ -149,7 +168,7 @@ contract Benefit is ERC20, Ownable {
     function redeem(uint256 _amount) public {
         checkAccountBalance(_amount);
         _transfer(msg.sender, contractAddress, _amount);
-        uint256 amountToTransfer = div(mul(_amount, price), 1e18);
+        uint256 amountToTransfer = div(mul(_amount, minimumPrice), 1e18);
         payable(msg.sender).transfer(amountToTransfer);
         updateSupport();
         updatePrice();
@@ -165,6 +184,19 @@ contract Benefit is ERC20, Ownable {
     function extractFunds(uint256 _amount) public onlyOwner {
         checkSupportForExtraction(_amount);
         payable(msg.sender).transfer(_amount);
+        updateSupport();
+        updatePrice();
+    }
+
+    function shareDividends(uint256 _amount) public onlyOwner {
+        checkSupportForExtraction(_amount);
+        for (uint256 i = 0; i < wallets.length; i++) {
+            uint256 amountToShare = mul(
+                div(_amount, soldTokens),
+                balanceOf(wallets[i])
+            );
+            payable(wallets[i]).transfer(amountToShare);
+        }
         updateSupport();
         updatePrice();
     }
