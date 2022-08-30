@@ -56,7 +56,6 @@ const DappInfo = () => {
     const formatedBalance = ethers.utils.formatEther(balance[0]);
     const toFixedBalance = parseFloat(formatedBalance).toFixed(4);
     const toFixedStrBalance = toFixedBalance.toString();
-    console.log(toFixedStrBalance);
     setContractEthBalance({
       amount: toFixedStrBalance,
     });
