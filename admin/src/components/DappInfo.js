@@ -72,37 +72,37 @@ const DappInfo = () => {
   return (
     <div className="d-flex fd-column ai-center padding-t-15 padding-b-10">
       <h1 className="fs-2p5 fc-orange margin-b-5 dynaFont">State of Benefit</h1>
-      <table className="white-border-4">
+      <table className="border-collapse-separate orange-border-4 border-radius-2">
         <tbody>
           <tr>
-            <td className="padding-1 white-border-2">
+            <td className="padding-1">
               <p className="fs-2 fc-white">Total supply:</p>
             </td>
-            <td className="padding-1 fc-white white-border-2">
+            <td className="padding-1 fc-white">
               <p className="fs-2 d-flex jc-end">{totalSupply.amount} BNF</p>
             </td>
           </tr>
           <tr>
-            <td className="padding-1 white-border-2">
+            <td className="padding-1">
               <p className="fs-2 fc-white">Sold tokens:</p>
             </td>
-            <td className="padding-1 fc-white white-border-2">
+            <td className="padding-1 fc-white">
               <p className="fs-2 d-flex jc-end">{soldTokens.amount} BNF</p>
             </td>
           </tr>
           <tr>
-            <td className="padding-1 fc-white  white-border-2">
+            <td className="padding-1 fc-white ">
               <p className="fs-2">Token price:</p>
             </td>
-            <td className="padding-1 fc-white white-border-2">
+            <td className="padding-1 fc-white">
               <p className="fs-2 d-flex jc-end">{price.price} MATIC</p>
             </td>
           </tr>
           <tr>
-            <td className="padding-1 fc-white white-border-2">
+            <td className="padding-1 fc-white">
               <p className="fs-2">Contract balance:</p>
             </td>
-            <td className="padding-1 fc-white white-border-2">
+            <td className="padding-1 fc-white">
               <p className="fs-2 d-flex jc-end">
                 {contractEthBalance.amount} MATIC
               </p>
