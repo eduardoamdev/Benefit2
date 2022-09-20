@@ -33,6 +33,32 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "currentContractBalance",
+        "type": "uint256"
+      }
+    ],
+    "name": "ContractBalanceChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "initialPrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "InitialPriceStablished",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -46,6 +72,32 @@
       }
     ],
     "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "currentSoldTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "SoldTokensChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "TotalSupplyStablished",
     "type": "event"
   },
   {
@@ -316,7 +368,7 @@
   },
   {
     "inputs": [],
-    "name": "getPrice",
+    "name": "getInitialPrice",
     "outputs": [
       {
         "internalType": "uint256",
@@ -392,6 +444,19 @@
   },
   {
     "inputs": [],
+    "name": "initialPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "initialPriceStablished",
     "outputs": [
       {
@@ -406,19 +471,6 @@
   {
     "inputs": [],
     "name": "initialSupport",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "minimumPrice",
     "outputs": [
       {
         "internalType": "uint256",
@@ -450,19 +502,6 @@
         "internalType": "address",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "price",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",

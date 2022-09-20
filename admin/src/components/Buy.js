@@ -19,8 +19,8 @@ const Buy = () => {
     price: 0,
   });
 
-  const getPrice = async () => {
-    const price = await contract.functions.getPrice();
+  const getInitialPrice = async () => {
+    const price = await contract.functions.getInitialPrice();
     const formatedPrice = ethers.utils.formatEther(price[0]);
     setPrice({
       price: formatedPrice,
@@ -65,7 +65,7 @@ const Buy = () => {
 
   useEffect(() => {
     getAccount();
-    getPrice();
+    getInitialPrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

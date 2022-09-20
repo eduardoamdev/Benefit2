@@ -19,9 +19,9 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 
 // Connection to local node
-module.exports = {
+/* module.exports = {
   solidity: "0.8.4",
-};
+}; */
 
 // Connection to Mumbai Network
 /* module.exports = {
@@ -44,3 +44,13 @@ module.exports = {
     },
   },
 }; */
+
+module.exports = {
+  solidity: "0.8.9",
+  networks: {
+    ropsten: {
+      url: "https://ropsten.infura.io/v3/3e6d2d35e3f1423d9d584a30594581d5",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+};

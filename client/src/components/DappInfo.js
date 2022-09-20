@@ -34,17 +34,17 @@ const DappInfo = () => {
   const getSoldTokens = async () => {
     const soldTokens = await contract.functions.soldTokens();
     const formatedSoldTokens = ethers.utils.formatEther(soldTokens[0]);
-    const toFixedSoldTokens = parseFloat(formatedSoldTokens).toFixed(1);
+    const toFixedSoldTokens = parseFloat(formatedSoldTokens).toFixed(2);
     const toFixedStrSoldTokens = toFixedSoldTokens.toString();
     setSoldTokens({
       amount: toFixedStrSoldTokens,
     });
   };
 
-  const getPrice = async () => {
-    const price = await contract.functions.getPrice();
+  const getInitialPrice = async () => {
+    const price = await contract.functions.getInitialPrice();
     const formatedPrice = ethers.utils.formatEther(price[0]);
-    const toFixedPrice = parseFloat(formatedPrice).toFixed(4);
+    const toFixedPrice = parseFloat(formatedPrice);
     const toFixedStrPrice = toFixedPrice.toString();
     setPrice({
       price: toFixedStrPrice,
@@ -54,7 +54,7 @@ const DappInfo = () => {
   const getContractEthBalance = async () => {
     const balance = await contract.functions.getContractEthBalance();
     const formatedBalance = ethers.utils.formatEther(balance[0]);
-    const toFixedBalance = parseFloat(formatedBalance).toFixed(4);
+    const toFixedBalance = parseFloat(formatedBalance);
     const toFixedStrBalance = toFixedBalance.toString();
     setContractEthBalance({
       amount: toFixedStrBalance,
@@ -64,7 +64,7 @@ const DappInfo = () => {
   useEffect(() => {
     getTotalSupply();
     getSoldTokens();
-    getPrice();
+    getInitialPrice();
     getContractEthBalance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
