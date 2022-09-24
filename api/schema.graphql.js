@@ -2,18 +2,16 @@ const { buildSchema } = require("graphql");
 
 const graphqlSchema = buildSchema(`
   type Query {
-    login: String
-    supply: Response
-    soldTokens: String
+    supply: Response!
   }
 
   type Mutation {
-    signup: String
+    createSupply(supply: Float): Response
   }
 
   type Response {
     success: Boolean
-    info: Int
+    message: String
   }
 `);
 

@@ -4,7 +4,7 @@ let dbConnection;
 
 const database = {
   connect: (callback) => {
-    MongoClient.connect("mongodb://localhost:27017/benefit")
+    MongoClient.connect(process.env.MONGO_DB)
       .then((client) => {
         dbConnection = client.db();
         return callback();

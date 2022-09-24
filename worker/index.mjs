@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import ethers from "ethers";
+import fetch from "node-fetch";
 
 const contractAbi = [
   "event TotalSupplyStablished(uint256 totalSupply)",
@@ -8,31 +9,50 @@ const contractAbi = [
   "event ContractBalanceChanged(uint256 currentContractBalance)",
 ];
 
-/* const ethersProvider = new ethers.providers.WebSocketProvider(
-  dotenv.config().parsed.PROVIDER_URL
-); */
-
 const ethersProvider = new ethers.providers.WebSocketProvider(
-  "http://127.0.0.1:8545"
+  dotenv.config().parsed.NODE_URL
 );
 
-/* const contract = new ethers.Contract(
-  dotenv.config().parsed.CONTRACT_ADDRESS,
-  contractAbi,
-  ethersProvider
-); */
-
 const contract = new ethers.Contract(
-  "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  dotenv.config().parsed.CONTRACT_ADDRESS,
   contractAbi,
   ethersProvider
 );
 
 console.log("Worker listening");
 
-contract.on("TotalSupplyStablished", (totalSupply) => {
-  console.log("Total supply event received");
-  console.log("Total supply: " + totalSupply);
+contract.on("TotalSupplyStablished", async (totalSupply) => {
+  const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `mutation createSupplyFetch($supply: Float) {
+          createSupply(supply: $supply){
+            success
+            message
+          }
+        }
+        `,
+      variables: { supply: parseFloat(totalSupply) },
+    }),
+  });
+
+  const response = await promise.json();
+
+  if (!response.errors) {
+    console.log(
+      `Create supply has been executed correctly with the following response: ${JSON.stringify(
+        response.data
+      )}`
+    );
+  } else {
+    console.log(
+      `Create supply has returned the following error: ${response.errors[0].message}`
+    );
+  }
 });
 
 contract.on("InitialPriceStablished", (initialPrice) => {

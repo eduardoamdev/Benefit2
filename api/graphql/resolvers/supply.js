@@ -11,6 +11,10 @@ class SupplyResolvers {
     supply: async () => {
       return this.supplyServices.services.supply();
     },
+
+    createSupply: async (_supply) => {
+      return this.supplyServices.services.createSupply(_supply);
+    },
   };
 }
 
