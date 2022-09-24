@@ -1,42 +1,37 @@
 require("dotenv").config();
 const express = require("express");
+const database = require("./db");
 const { graphqlHTTP } = require("express-graphql");
 const graphqlSchema = require("./schema.graphql");
-const infoResolvers = require("./graphql/resolvers");
-const authResolvers = require("./graphql/services");
+const SupplyResolvers = require("./graphql/resolvers/supply");
+const createRoot = require("./resources/createRoot");
 
 const port = process.env.PORT;
 
 const app = express();
 
-const createRoot = (...args) => {
-  const createdRoot = {};
+database.connect((error) => {
+  if (!error) {
+    const db = database.get();
 
-  for (let i = 0; i < args.length; i++) {
-    const resolvers = args[i];
+    const supply = new SupplyResolvers(db);
+    const supplyResolvers = supply.resolvers;
 
-    let resolversKeys = Object.keys(resolvers);
+    const graphqlRoot = createRoot(supplyResolvers);
 
-    for (let i = 0; i < resolversKeys.length; i++) {
-      let resolverKey = resolversKeys[i];
-      createdRoot[resolverKey] = resolvers[resolverKey];
-    }
+    app.use(
+      "/graphql",
+      graphqlHTTP({
+        schema: graphqlSchema,
+        rootValue: graphqlRoot,
+        graphiql: true,
+      })
+    );
+
+    app.listen(port, () => {
+      console.log(`Server runing on port: ${port}`);
+    });
+  } else {
+    console.log(`Database connection error: ${error}`);
   }
-
-  return createdRoot;
-};
-
-const root = createRoot(infoResolvers, authResolvers);
-
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: graphqlSchema,
-    rootValue: root,
-    graphiql: true,
-  })
-);
-
-app.listen(port, () => {
-  console.log(`Server runing on port: ${port}`);
 });
