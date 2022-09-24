@@ -8,12 +8,22 @@ const contractAbi = [
   "event ContractBalanceChanged(uint256 currentContractBalance)",
 ];
 
-const ethersProvider = new ethers.providers.WebSocketProvider(
+/* const ethersProvider = new ethers.providers.WebSocketProvider(
   dotenv.config().parsed.PROVIDER_URL
+); */
+
+const ethersProvider = new ethers.providers.WebSocketProvider(
+  "http://127.0.0.1:8545"
 );
 
-const contract = new ethers.Contract(
+/* const contract = new ethers.Contract(
   dotenv.config().parsed.CONTRACT_ADDRESS,
+  contractAbi,
+  ethersProvider
+); */
+
+const contract = new ethers.Contract(
+  "0x5FbDB2315678afecb367f032d93F642f64180aa3",
   contractAbi,
   ethersProvider
 );
