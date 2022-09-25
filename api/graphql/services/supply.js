@@ -11,6 +11,10 @@ class SupplyServices {
         .collection("info")
         .findOne({ type: "supply" });
 
+      if (!supply.supply) {
+        throw new Error("Supply has not been returned correctly to MongoDB");
+      }
+
       return {
         success: true,
         message: `Contract supply is: ${supply.supply}`,
@@ -18,9 +22,13 @@ class SupplyServices {
     },
 
     createSupply: async (_supply) => {
-      await this.db
+      const creationInfo = await this.db
         .collection("info")
         .insertOne({ type: "supply", supply: _supply.supply });
+
+      if (!creationInfo.insertedId) {
+        throw new Error("Supply has not been injected correctly to MongoDB");
+      }
 
       return {
         success: true,
