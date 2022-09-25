@@ -60,9 +60,38 @@ contract.on("InitialPriceStablished", (initialPrice) => {
   console.log("Initial price: " + initialPrice);
 });
 
-contract.on("SoldTokensChanged", (currentSoldTokens) => {
-  console.log("Sold tokens event received");
-  console.log("Sold tokens: " + currentSoldTokens);
+contract.on("SoldTokensChanged", async (currentSoldTokens) => {
+  const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `mutation updateSoldTokensFetch($amount: Float) {
+          updateSoldTokens(amount: $amount){
+            success
+            message
+          }
+        }
+        `,
+      variables: { amount: parseFloat(currentSoldTokens) },
+    }),
+  });
+
+  const response = await promise.json();
+
+  if (!response.errors) {
+    console.log(
+      `Create supply has been executed correctly with the following response: ${JSON.stringify(
+        response.data
+      )}`
+    );
+  } else {
+    console.log(
+      `Create supply has returned the following error: ${response.errors[0].message}`
+    );
+  }
 });
 
 contract.on("ContractBalanceChanged", (currentContractBalance) => {

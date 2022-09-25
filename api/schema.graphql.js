@@ -3,12 +3,14 @@ const { buildSchema } = require("graphql");
 const graphqlSchema = buildSchema(`
   type Query {
     supply: Response
+    initialPrice: Response
     soldTokens: Response
   }
 
   type Mutation {
     createSupply(supply: Float): Response
-    updateSoldTokens(amount: Int): Response
+    createInitialPrice(price: Float): Response
+    updateSoldTokens(amount: Float): Response
   }
 
   type Response {

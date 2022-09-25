@@ -5,6 +5,7 @@ const { graphqlHTTP } = require("express-graphql");
 const graphqlSchema = require("./schema.graphql");
 const SupplyResolvers = require("./graphql/resolvers/supply");
 const SoldTokensResolvers = require("./graphql/resolvers/soldTokens");
+const InitialPriceResolvers = require("./graphql/resolvers/initialPrice");
 const createRoot = require("./resources/createRoot");
 
 const port = process.env.PORT;
@@ -18,10 +19,17 @@ database.connect((error) => {
     const supply = new SupplyResolvers(db);
     const supplyResolvers = supply.resolvers;
 
+    const initialPrice = new InitialPriceResolvers(db);
+    const initialPriceResolvers = initialPrice.resolvers;
+
     const soldTokens = new SoldTokensResolvers(db);
     const soldTokensResolvers = soldTokens.resolvers;
 
-    const graphqlRoot = createRoot(supplyResolvers, soldTokensResolvers);
+    const graphqlRoot = createRoot(
+      supplyResolvers,
+      soldTokensResolvers,
+      initialPriceResolvers
+    );
 
     app.use(
       "/graphql",
