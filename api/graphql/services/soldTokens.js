@@ -24,7 +24,7 @@ class SoldTokensServices {
     },
 
     updateSoldTokens: async (_amount) => {
-      const updateInfo = await this.db
+      const updatedInfo = await this.db
         .collection("info")
         .updateOne(
           { type: "soldTokens" },
@@ -32,7 +32,7 @@ class SoldTokensServices {
           { upsert: true }
         );
 
-      if (!updateInfo.acknowledged) {
+      if (!updatedInfo.acknowledged) {
         throw new Error(
           "Sold tokens amount have not been correctly updated to MongoDB"
         );
@@ -40,7 +40,7 @@ class SoldTokensServices {
 
       return {
         success: true,
-        message: `An amount of ${_amount.amount} sold tokens is registered in our database`,
+        message: `An amount of ${_amount.amount} sold tokens have been registered in our database`,
       };
     },
   };

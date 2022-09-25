@@ -5,12 +5,14 @@ const graphqlSchema = buildSchema(`
     supply: Response
     initialPrice: Response
     soldTokens: Response
+    balance: Response
   }
 
   type Mutation {
     createSupply(supply: Float): Response
     createInitialPrice(price: Float): Response
     updateSoldTokens(amount: Float): Response
+    updateBalance(balance: Float): Response
   }
 
   type Response {

@@ -55,9 +55,38 @@ contract.on("TotalSupplyStablished", async (totalSupply) => {
   }
 });
 
-contract.on("InitialPriceStablished", (initialPrice) => {
-  console.log("Initial price event received");
-  console.log("Initial price: " + initialPrice);
+contract.on("InitialPriceStablished", async (initialPrice) => {
+  const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `mutation createInitialPriceFetch($price: Float) {
+          createInitialPrice(price: $price){
+            success
+            message
+          }
+        }
+        `,
+      variables: { price: parseFloat(initialPrice) },
+    }),
+  });
+
+  const response = await promise.json();
+
+  if (!response.errors) {
+    console.log(
+      `Create initial price has been executed correctly with the following response: ${JSON.stringify(
+        response.data
+      )}`
+    );
+  } else {
+    console.log(
+      `Create initial price has returned the following error: ${response.errors[0].message}`
+    );
+  }
 });
 
 contract.on("SoldTokensChanged", async (currentSoldTokens) => {
@@ -83,18 +112,47 @@ contract.on("SoldTokensChanged", async (currentSoldTokens) => {
 
   if (!response.errors) {
     console.log(
-      `Create supply has been executed correctly with the following response: ${JSON.stringify(
+      `Sold tokens changed has been executed correctly with the following response: ${JSON.stringify(
         response.data
       )}`
     );
   } else {
     console.log(
-      `Create supply has returned the following error: ${response.errors[0].message}`
+      `Create tokens changed has returned the following error: ${response.errors[0].message}`
     );
   }
 });
 
-contract.on("ContractBalanceChanged", (currentContractBalance) => {
-  console.log("Contract balance event received");
-  console.log("Contract balance: " + currentContractBalance);
+contract.on("ContractBalanceChanged", async (currentContractBalance) => {
+  const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `mutation updateBalanceFetch($balance: Float) {
+          updateBalance(balance: $balance){
+            success
+            message
+          }
+        }
+        `,
+      variables: { balance: parseFloat(currentContractBalance) },
+    }),
+  });
+
+  const response = await promise.json();
+
+  if (!response.errors) {
+    console.log(
+      `Contract balance updating has been executed correctly with the following response: ${JSON.stringify(
+        response.data
+      )}`
+    );
+  } else {
+    console.log(
+      `Contract balance updating has returned the following error: ${response.errors[0].message}`
+    );
+  }
 });

@@ -6,6 +6,7 @@ const graphqlSchema = require("./schema.graphql");
 const SupplyResolvers = require("./graphql/resolvers/supply");
 const SoldTokensResolvers = require("./graphql/resolvers/soldTokens");
 const InitialPriceResolvers = require("./graphql/resolvers/initialPrice");
+const ContractBalanceResolvers = require("./graphql/resolvers/contractBalance");
 const createRoot = require("./resources/createRoot");
 
 const port = process.env.PORT;
@@ -25,10 +26,14 @@ database.connect((error) => {
     const soldTokens = new SoldTokensResolvers(db);
     const soldTokensResolvers = soldTokens.resolvers;
 
+    const contractBalance = new ContractBalanceResolvers(db);
+    const contractBalanceResolvers = contractBalance.resolvers;
+
     const graphqlRoot = createRoot(
       supplyResolvers,
       soldTokensResolvers,
-      initialPriceResolvers
+      initialPriceResolvers,
+      contractBalanceResolvers
     );
 
     app.use(
