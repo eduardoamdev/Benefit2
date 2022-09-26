@@ -1,11 +1,11 @@
-class ContractBalanceServices {
+class ContractBalanceService {
   db;
 
   constructor(_db) {
     this.db = _db;
   }
 
-  services = {
+  methods = {
     balance: async () => {
       const balance = await this.db
         .collection("info")
@@ -19,7 +19,7 @@ class ContractBalanceServices {
 
       return {
         success: true,
-        message: `The balance of our Benefit contract is ${balance.balance} MATIC`,
+        message: `The balance of our Benefit contract is ${balance.balance} ETH`,
       };
     },
 
@@ -46,4 +46,4 @@ class ContractBalanceServices {
   };
 }
 
-module.exports = ContractBalanceServices;
+export default ContractBalanceService;

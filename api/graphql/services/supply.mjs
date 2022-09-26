@@ -1,11 +1,11 @@
-class SupplyServices {
+class SupplyService {
   db;
 
   constructor(_db) {
     this.db = _db;
   }
 
-  services = {
+  methods = {
     supply: async () => {
       const supply = await this.db
         .collection("info")
@@ -38,4 +38,4 @@ class SupplyServices {
   };
 }
 
-module.exports = SupplyServices;
+export default SupplyService;

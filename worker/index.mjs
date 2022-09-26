@@ -22,11 +22,14 @@ const contract = new ethers.Contract(
 console.log("Worker listening");
 
 contract.on("TotalSupplyStablished", async (totalSupply) => {
+  const supply = parseFloat(totalSupply) / 1e18;
+
   const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation createSupplyFetch($supply: Float) {
@@ -36,7 +39,7 @@ contract.on("TotalSupplyStablished", async (totalSupply) => {
           }
         }
         `,
-      variables: { supply: parseFloat(totalSupply) },
+      variables: { supply: parseFloat(supply) },
     }),
   });
 
@@ -56,11 +59,14 @@ contract.on("TotalSupplyStablished", async (totalSupply) => {
 });
 
 contract.on("InitialPriceStablished", async (initialPrice) => {
+  const price = parseFloat(initialPrice) / 1e18;
+
   const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation createInitialPriceFetch($price: Float) {
@@ -70,7 +76,7 @@ contract.on("InitialPriceStablished", async (initialPrice) => {
           }
         }
         `,
-      variables: { price: parseFloat(initialPrice) },
+      variables: { price: parseFloat(price) },
     }),
   });
 
@@ -90,11 +96,14 @@ contract.on("InitialPriceStablished", async (initialPrice) => {
 });
 
 contract.on("SoldTokensChanged", async (currentSoldTokens) => {
+  const soldTokens = parseFloat(currentSoldTokens) / 1e18;
+
   const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation updateSoldTokensFetch($amount: Float) {
@@ -104,7 +113,7 @@ contract.on("SoldTokensChanged", async (currentSoldTokens) => {
           }
         }
         `,
-      variables: { amount: parseFloat(currentSoldTokens) },
+      variables: { amount: parseFloat(soldTokens) },
     }),
   });
 
@@ -118,17 +127,20 @@ contract.on("SoldTokensChanged", async (currentSoldTokens) => {
     );
   } else {
     console.log(
-      `Create tokens changed has returned the following error: ${response.errors[0].message}`
+      `Sold tokens changed has returned the following error: ${response.errors[0].message}`
     );
   }
 });
 
 contract.on("ContractBalanceChanged", async (currentContractBalance) => {
+  const contractBalance = parseFloat(currentContractBalance) / 1e18;
+
   const promise = await fetch(`${dotenv.config().parsed.API_URL}/graphql`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation updateBalanceFetch($balance: Float) {
@@ -138,7 +150,7 @@ contract.on("ContractBalanceChanged", async (currentContractBalance) => {
           }
         }
         `,
-      variables: { balance: parseFloat(currentContractBalance) },
+      variables: { balance: parseFloat(contractBalance) },
     }),
   });
 

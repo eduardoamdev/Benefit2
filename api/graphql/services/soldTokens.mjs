@@ -1,11 +1,11 @@
-class SoldTokensServices {
+class SoldTokensService {
   db;
 
   constructor(_db) {
     this.db = _db;
   }
 
-  services = {
+  methods = {
     soldTokens: async () => {
       const soldTokens = await this.db
         .collection("info")
@@ -46,4 +46,4 @@ class SoldTokensServices {
   };
 }
 
-module.exports = SoldTokensServices;
+export default SoldTokensService;

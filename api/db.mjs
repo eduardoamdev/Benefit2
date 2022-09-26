@@ -1,4 +1,6 @@
-const { MongoClient } = require("mongodb-legacy");
+import pkg from "mongodb-legacy";
+
+const { MongoClient } = pkg;
 
 let dbConnection;
 
@@ -18,4 +20,4 @@ const database = {
   },
 };
 
-module.exports = database;
+export default database;

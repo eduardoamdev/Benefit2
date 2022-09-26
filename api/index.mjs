@@ -1,15 +1,16 @@
-require("dotenv").config();
-const express = require("express");
-const database = require("./db");
-const { graphqlHTTP } = require("express-graphql");
-const graphqlSchema = require("./schema.graphql");
-const SupplyResolvers = require("./graphql/resolvers/supply");
-const SoldTokensResolvers = require("./graphql/resolvers/soldTokens");
-const InitialPriceResolvers = require("./graphql/resolvers/initialPrice");
-const ContractBalanceResolvers = require("./graphql/resolvers/contractBalance");
-const createRoot = require("./resources/createRoot");
+import dotenv from "dotenv";
+import express from "express";
+import database from "./db.mjs";
+import { graphqlHTTP } from "express-graphql";
+import graphqlSchema from "./schema.graphql.mjs";
+import SupplyResolvers from "./graphql/resolvers/supply.mjs";
+import SoldTokensResolvers from "./graphql/resolvers/soldTokens.mjs";
+import InitialPriceResolvers from "./graphql/resolvers/initialPrice.mjs";
+import ContractBalanceResolvers from "./graphql/resolvers/contractBalance.mjs";
+import createRoot from "./resources/createRoot.mjs";
+import authorization from "./middlewares/authorization.mjs";
 
-const port = process.env.PORT;
+const port = dotenv.config().parsed.PORT;
 
 const app = express();
 
@@ -35,6 +36,8 @@ database.connect((error) => {
       initialPriceResolvers,
       contractBalanceResolvers
     );
+
+    app.use(authorization);
 
     app.use(
       "/graphql",

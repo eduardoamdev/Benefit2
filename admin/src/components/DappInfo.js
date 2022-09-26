@@ -95,7 +95,7 @@ const DappInfo = () => {
               <p className="fs-2">Initial price:</p>
             </td>
             <td className="padding-1 fc-white">
-              <p className="fs-2 d-flex jc-end">{price.price} MATIC</p>
+              <p className="fs-2 d-flex jc-end">{price.price} ETH</p>
             </td>
           </tr>
           <tr>
@@ -104,7 +104,7 @@ const DappInfo = () => {
             </td>
             <td className="padding-1 fc-white">
               <p className="fs-2 d-flex jc-end">
-                {contractEthBalance.amount} MATIC
+                {contractEthBalance.amount} ETH
               </p>
             </td>
           </tr>

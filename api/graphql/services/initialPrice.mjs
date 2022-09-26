@@ -1,11 +1,11 @@
-class InitialPriceServices {
+class InitialPriceService {
   db;
 
   constructor(_db) {
     this.db = _db;
   }
 
-  services = {
+  methods = {
     initialPrice: async () => {
       const initialPrice = await this.db
         .collection("info")
@@ -42,4 +42,4 @@ class InitialPriceServices {
   };
 }
 
-module.exports = InitialPriceServices;
+export default InitialPriceService;

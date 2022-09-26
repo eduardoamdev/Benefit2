@@ -15,4 +15,4 @@ const createRoot = (...args) => {
   return createdRoot;
 };
 
-module.exports = createRoot;
+export default createRoot;
