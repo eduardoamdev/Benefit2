@@ -20,6 +20,7 @@ class InitialPriceService {
       return {
         success: true,
         message: `The initial price of the token is ${initialPrice.price}`,
+        info: initialPrice.price,
       };
     },
 
@@ -37,6 +38,7 @@ class InitialPriceService {
       return {
         success: true,
         message: `A initial token price of ${_price.price} has been inserted`,
+        info: _price.price,
       };
     },
   };

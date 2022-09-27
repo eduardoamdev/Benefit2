@@ -18,6 +18,7 @@ class SupplyService {
       return {
         success: true,
         message: `Contract supply is: ${supply.supply}`,
+        info: supply.supply,
       };
     },
 
@@ -33,6 +34,7 @@ class SupplyService {
       return {
         success: true,
         message: `A supply of ${_supply.supply} has been inserted`,
+        info: _supply.supply,
       };
     },
   };

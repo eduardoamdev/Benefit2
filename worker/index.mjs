@@ -29,13 +29,13 @@ contract.on("TotalSupplyStablished", async (totalSupply) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation createSupplyFetch($supply: Float) {
           createSupply(supply: $supply){
             success
             message
+            info
           }
         }
         `,
@@ -66,13 +66,13 @@ contract.on("InitialPriceStablished", async (initialPrice) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation createInitialPriceFetch($price: Float) {
           createInitialPrice(price: $price){
             success
             message
+            info
           }
         }
         `,
@@ -103,13 +103,13 @@ contract.on("SoldTokensChanged", async (currentSoldTokens) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation updateSoldTokensFetch($amount: Float) {
           updateSoldTokens(amount: $amount){
             success
             message
+            info
           }
         }
         `,
@@ -140,13 +140,13 @@ contract.on("ContractBalanceChanged", async (currentContractBalance) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      authorization: process.env.PASSWORD,
     },
     body: JSON.stringify({
       query: `mutation updateBalanceFetch($balance: Float) {
           updateBalance(balance: $balance){
             success
             message
+            info
           }
         }
         `,

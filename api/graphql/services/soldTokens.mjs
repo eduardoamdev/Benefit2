@@ -20,6 +20,7 @@ class SoldTokensService {
       return {
         success: true,
         message: `${soldTokens.amount} tokens have been sold`,
+        info: soldTokens.amount,
       };
     },
 
@@ -41,6 +42,7 @@ class SoldTokensService {
       return {
         success: true,
         message: `An amount of ${_amount.amount} sold tokens have been registered in our database`,
+        info: _amount.amount,
       };
     },
   };

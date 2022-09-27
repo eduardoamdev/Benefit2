@@ -18,6 +18,7 @@ const graphqlSchema = buildSchema(`
   type Response {
     success: Boolean
     message: String
+    info: Int
   }
 `);
 

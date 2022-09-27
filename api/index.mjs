@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import cors from "cors";
 import database from "./db.mjs";
 import { graphqlHTTP } from "express-graphql";
 import graphqlSchema from "./schema.graphql.mjs";
@@ -8,7 +9,6 @@ import SoldTokensResolvers from "./graphql/resolvers/soldTokens.mjs";
 import InitialPriceResolvers from "./graphql/resolvers/initialPrice.mjs";
 import ContractBalanceResolvers from "./graphql/resolvers/contractBalance.mjs";
 import createRoot from "./resources/createRoot.mjs";
-import authorization from "./middlewares/authorization.mjs";
 
 const port = dotenv.config().parsed.PORT;
 
@@ -37,7 +37,7 @@ database.connect((error) => {
       contractBalanceResolvers
     );
 
-    app.use(authorization);
+    app.use(cors());
 
     app.use(
       "/graphql",

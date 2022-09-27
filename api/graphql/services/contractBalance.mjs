@@ -20,6 +20,7 @@ class ContractBalanceService {
       return {
         success: true,
         message: `The balance of our Benefit contract is ${balance.balance} ETH`,
+        info: balance.balance,
       };
     },
 
@@ -41,6 +42,7 @@ class ContractBalanceService {
       return {
         success: true,
         message: `A contract balance of ${_balance.balance} have been registered in our database`,
+        info: _balance.balance,
       };
     },
   };
