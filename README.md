@@ -26,6 +26,14 @@ Es la librería que empleamos para desarrollar aplicaciones en la parte del clie
 
 Metamask en una wallet multifunción que nos proporcionará un provider con el que trabajar en la parte del cliente. Este provider hará de intermediario entre el cliente y la blockchain.
 
+### NodeJS:
+
+NodeJS es el lenguage de programación que empleamos en el backend.
+
+### GraphQL
+
+Lenguaje de consultas que empleamos para comunicarnos con la API.
+
 ## Partes del proyecto:
 
 ### Contracts environment:
@@ -60,6 +68,14 @@ La estructura de este proyecto es exactamente igual que la del Admin con la salv
 
 Nota: si estamos trabajando con la versión 18 de NodeJS y nos aparece el error < Error HH604: Error running JSON-RPC server: error:0308010C:digital envelope routines::unsupported > debemos ejecutar en la terminal el comando: < export NODE_OPTIONS=--openssl-legacy-provider >.
 
+### Worker
+
+Se trata de un script con varios watch que se encargan de escuchar eventos de el contrato para recibir información por medio de ellos e inyectarla a la base de datos mediante una llamada a la API.
+
+### API
+
+Se trata de una serie de resolvers y servicios que gestionamos con express-graphql y que tienen como objectivo inyectar en la base de datos la información procedente de los workers y suministrársela al cliente de React.
+
 ## Puesta en funcionamiento en nuestro localhost.
 
 ### Despliegue de nuestro contrato en un nodo local de Hardhat.
@@ -73,6 +89,18 @@ Para realizar todo el proceso seguiremos los siguientes pasos:
 - Compilaremos con el comando < npx hardhat compile --network localhost >.
 
 - El despliegue del contrato lo haremos mediante en comando < npx hardhat run scripts/sample-script.js --network localhost >. Nota: la address que ha desplegado la aplicación es por defecto la primera de las que nos ha proporcionado Hardhat (esto aplica sólo cuando trabajamos en local).
+
+### Puesta en marcha del worker:
+
+Para poner en marcha el worker nos ubicaremos con nuestra terminal dentro del directorio "worker" y ejecutaremos el comando < npm run worker >. Con ello, pondremos los watch a la escucha de los eventos del contrato.
+
+### Puesta en marcha de la API:
+
+Para arrancar nuestra API nos ubicaremos con nuestra terminal dentro del directorio "API" y ejecutaremos < npm run dev >.
+
+### Base de datos MongoDB:
+
+No nos podemos olvidar de tener arrancada una base de datos Mongo para poder almacenar nuestra información. Para ello, podemos emplear Atlas o hacerlo en local.
 
 ### Poner el contrato en marcha desde la aplicación de admin.
 
